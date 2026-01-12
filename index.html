@@ -10,39 +10,6 @@
     </style>
   </head>
   <body>
-    
-    <!-- <div>
-        <video id="testvid">
-            <source src="./testvid.mp4" type="video/mp4">
-        </video>
-    </div>
-
-    <script>
-        const testvid = document.getElementById('testvid');
-        testvid.autoplay = true;
-        testvid.controls = false;
-        testvid.volume = 0;
-        document.addEventListener('mousemove', () => {
-            // setTimeout(() => {
-                if (testvid.paused) {
-                    testvid.play();
-                } else {
-                    testvid.pause();
-                }
-            // }, 100);
-        });
-    </script> -->
-
-    <input id="red" type="range">
-    <span id="redText"></span>
-    <input id="yellow" type="range">
-    <span id="yellowText"></span>
-    <input id="green" type="range">
-    <span id="greenText"></span>
-    <input id="four" type="range">
-    <span id="fourText"></span>
-    <input id="five" type="range">
-    <span id="fiveText"></span>
 
     <div id="content">
 
@@ -50,98 +17,45 @@
 
     <script>
         const content = document.getElementById('content');
-        content.style.width = window.innerWidth + 'px';
-        content.style.height = (window.innerHeight) + 'px';
-    
-        const red = document.getElementById('red');
-        const green = document.getElementById('green');
-        const yellow = document.getElementById('yellow');
-        const four = document.getElementById('four');
-        const five = document.getElementById('five');
 
-
-        const redText = document.getElementById('redText');
-        const greenText = document.getElementById('greenText');
-        const yellowText = document.getElementById('yellowText');
-        const fourText = document.getElementById('fourText');
-        const fiveText = document.getElementById('fiveText');
-
-        redVal = 0;
-        yellowVal = 25;
-        greenVal = 50;
-        fourVal = 75;
-        fiveVal = 100;
-        red.value = redVal
-        green.value = greenVal;
-        yellow.value = yellowVal;
-        four.value = fourVal;
-        five.value = fiveVal;
+        const gradients = [
+            ['#FA0200','#FA5A00','#FA2E00','#FA008F','#FBCB94'],
+            ['#FBCB94','#FA0200','#FA5A00','#FA2E00','#FA008F'],
+            ['#FA008F','#FBCB94','#FA0200','#FA5A00','#FA2E00'],
+            ['#FA2E00','#FA008F','#FBCB94','#FA0200','#FA5A00'],
+        ];
 
         refreshcolor();
 
-        red.addEventListener('input', (event) => {
-            redVal = event.target.value;
-            refreshcolor();
-        });
-
-        green.addEventListener('input', (event) => {
-            greenVal = event.target.value;
-            refreshcolor();
-        });
-
-        yellow.addEventListener('input', (event) => {
-            yellowVal = event.target.value;
-            refreshcolor();
-        });
-
-        four.addEventListener('input', (event) => {
-            fourVal = event.target.value;
-            refreshcolor();
-        });
-
-        five.addEventListener('input', (event) => {
-            fiveVal = event.target.value;
-            refreshcolor();
-        });
-
         document.addEventListener('mousemove', (event) => {
+
             const height = window.innerHeight;
-            const percentage = (event.clientY / height);
-            const addi = 25;
-            redVal = (5 * percentage);
-            yellowVal = (25 * percentage);
-            greenVal = (50 * percentage);
-            fourVal = (75 * percentage);
-            fiveVal = (100 * percentage)+addi;
-            red.value = redVal;
-            green.value = greenVal;
-            yellow.value = yellowVal;
-            four.value = fourVal;
-            five.value = fiveVal;
+            const mouseY = event.clientY;
+            const perc = (mouseY / height)*100
+
+            if (perc >= 0 && perc <= 25) {
+                refreshcolor(gradients[0]);
+            } else if (perc > 25 && perc <= 50) {
+                refreshcolor(gradients[1]);
+            } else if (perc > 50 && perc <= 75) {
+                refreshcolor(gradients[2]);
+            } else if (perc > 75 && perc <= 100) {
+                refreshcolor(gradients[3]);
+            }
+
             
-            
-            refreshcolor()
         });
 
+        
 
-        function refreshcolor() {
-            redText.innerText = Math.round(redVal);
-            greenText.innerText = Math.round(greenVal);
-            yellowText.innerText = Math.round(yellowVal);
-            fourText.innerText = Math.round(fourVal);
-            fiveText.innerText = Math.round(fiveVal);
+        function refreshcolor(one, two, three, four, five) {
             content.style.background = `radial-gradient(
-                circle at center in hsl shorter hue,
-                #FA0200 ${redVal + 5}%, 
-                #FA5A00 ${yellowVal + 5}%, 
-                #FA2E00 ${greenVal + 5}%, 
-                #FA008F ${fourVal + 5}%, 
-                #FBCB94 ${fiveVal + 5}%,
-                #FA0200 ${(redVal + 5)+100}%, 
-                #FA5A00 ${(yellowVal + 5)+100}%, 
-                #FA2E00 ${(greenVal + 5)+100}%, 
-                #FA008F ${(fourVal + 5)+100}%, 
-                #FBCB94 ${(fiveVal + 5)+100}%
+                circle at center top,
+                ${one}, 
+                ${two}, 
+                ${three}, 
+                ${four}, 
+                ${five}
             )`;
         }
 

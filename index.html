@@ -16,7 +16,10 @@
     </div>
 
     <script>
+
         const content = document.getElementById('content');
+        content.style.width = window.innerWidth + 'px';
+        content.style.height = window.innerHeight + 'px';
 
         const gradients = [
             ['#FA0200','#FA5A00','#FA2E00','#FA008F','#FBCB94'],
@@ -25,14 +28,12 @@
             ['#FA2E00','#FA008F','#FBCB94','#FA0200','#FA5A00'],
         ];
 
-        refreshcolor();
+        refreshcolor(gradients[0]);
 
         document.addEventListener('mousemove', (event) => {
-
             const height = window.innerHeight;
             const mouseY = event.clientY;
-            const perc = (mouseY / height)*100
-
+            const perc = (mouseY / height)*100;
             if (perc >= 0 && perc <= 25) {
                 refreshcolor(gradients[0]);
             } else if (perc > 25 && perc <= 50) {
@@ -41,21 +42,17 @@
                 refreshcolor(gradients[2]);
             } else if (perc > 75 && perc <= 100) {
                 refreshcolor(gradients[3]);
-            }
-
-            
+            } 
         });
 
-        
-
-        function refreshcolor(one, two, three, four, five) {
+        function refreshcolor(list) {
             content.style.background = `radial-gradient(
-                circle at center top,
-                ${one}, 
-                ${two}, 
-                ${three}, 
-                ${four}, 
-                ${five}
+                circle at center,
+                ${list[0]} 0%, 
+                ${list[1]} 25%, 
+                ${list[2]} 50%, 
+                ${list[3]} 75%, 
+                ${list[4]} 100%
             )`;
         }
 

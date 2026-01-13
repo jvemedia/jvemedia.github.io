@@ -5,83 +5,9 @@
     <!-- <link rel="icon" type="image/svg+xml" href="/vite.svg" /> -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>JVE Media Three Test</title>
-    <style>
-
-    </style>
   </head>
   <body>
-
-    <div id="content">
-
-    </div>
-
-    <script>
-
-        const content = document.getElementById('content');
-        content.style.width = window.innerWidth + 'px';
-        content.style.height = window.innerHeight + 'px';
-
-        const gradients = [
-            ['#FA0200','#FA5A00','#FA2E00','#FA008F','#FBCB94'],
-            ['#FBCB94','#FA0200','#FA5A00','#FA2E00','#FA008F'],
-            ['#FA008F','#FBCB94','#FA0200','#FA5A00','#FA2E00'],
-            ['#FA2E00','#FA008F','#FBCB94','#FA0200','#FA5A00'],
-        ];
-
-        refreshcolor(gradients[0]);
-
-        document.addEventListener('mousemove', (event) => {
-            const height = window.innerHeight;
-            const percentage = event.clientY / height;
-
-            const totalSteps = gradients.length - 1;
-            const step = Math.floor(percentage * totalSteps);
-            const localT = (percentage - step / totalSteps) * totalSteps;
-
-            const gradient1 = gradients[step];
-            const gradient2 = gradients[Math.min(step + 1, gradients.length - 1)];
-
-            const blended = gradient1.map((color, i) => lerpColor(color, gradient2[i], localT));
-
-            refreshcolor(blended);
-        });
-
-        function refreshcolor(list) {
-            content.style.background = `radial-gradient(
-                circle at center,
-                ${list[0]} 0%, 
-                ${list[1]} 25%, 
-                ${list[2]} 50%, 
-                ${list[3]} 75%, 
-                ${list[4]} 100%
-            )`;
-        }
-
-        function hexToRgb(hex) {
-            //#RRGGBB
-            hex = hex.replace('#', '');
-            return {
-                r: parseInt(hex.substring(0, 2), 16),
-                g: parseInt(hex.substring(2, 4), 16),
-                b: parseInt(hex.substring(4, 6), 16)
-            };
-        }
-
-        function lerp(a, b, t) {
-            return a + (b - a) * t;
-        }
-
-        function lerpColor(a, b, t) {
-            const c1 = hexToRgb(a);
-            const c2 = hexToRgb(b);
-
-            const r = Math.round(lerp(c1.r, c2.r, t));
-            const g = Math.round(lerp(c1.g, c2.g, t));
-            const b2 = Math.round(lerp(c1.b, c2.b, t));
-
-            return `rgb(${r},${g},${b2})`;
-        }
-
-    </script>
+    <div id="app"></div>
+    <script type="module" src="/src/main.ts"></script>
   </body>
 </html>

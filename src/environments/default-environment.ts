@@ -66,7 +66,7 @@ export class Environment {
         this.renderer.render(this.scene,  this.camera);
     }
 
-    public async loadEnvHDR(path: string, filename: string): Promise<void> {
+    public async loadEnvHDR(path: string, filename?: string): Promise<void> {
         const loader = new HDRLoader();
         const hdrData = await loader.loadAsync(path + filename);
         hdrData.mapping = EquirectangularReflectionMapping;

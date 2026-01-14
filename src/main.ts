@@ -9,15 +9,15 @@ const environment = new Environment(false, false);
 await environment.loadEnvHDR('/dist/objects/HDR/', 'hdrtest.hdr');
 // const obj = await environment.loadGLTF('/objects/HDR/', 'uv_square_new.glb', 'Cube');
 const obj = await environment.loadGLTF('/dist/objects/HDR/', 'tv.glb', 'tv');
-// obj.scale.addScalar(1);
-obj.translateY(1);
+obj.scale.addScalar(1.5);
+obj.translateY(-0.5);
 
 environment.changeCameraPos('z', 5);
 environment.render(); //First frame
 
 //Rotate animation
-// new RotateAnimation(obj, environment, {x: 0.01, y: 0.01, z: 0}).rotateCube();
+new RotateAnimation(obj, environment, {x: 0, y: 0.005, z: 0}).rotateCube();
 
 //Events
-EventHelper.addClickDragRotateEvent(environment, obj);
+// EventHelper.addClickDragRotateEvent(environment, obj);
 // EventHelper.addClickDragCameraRotation(environment);
